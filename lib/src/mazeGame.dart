@@ -17,17 +17,23 @@ enum MoveType { None, Up, Down, Right, Left }
 // enum DirectType { Wall, Empty, Exit }
 
 class MazeGame extends FlameGame with HasCollisionDetection {
-  MazeGame({required bool finish, required int level}) : super() {
+  MazeGame(
+      {required bool finish,
+      required int level,
+      required double right,
+      required double bottom})
+      : super() {
     _finish = finish;
     _level = level;
+    _right = right;
+    _bottom = bottom;
   }
-
-  // late final List<List<DirectType>> _tile = [];
-  // late final List<List<Road>> _list = [];
 
   late Player _player;
   late bool _finish;
   late int _level;
+  late double _right;
+  late double _bottom;
 
   double componentSize = 50;
 
@@ -45,19 +51,17 @@ class MazeGame extends FlameGame with HasCollisionDetection {
     await add(world);
     world.add(bg);
 
-    print("aaa :${(componentSize * (_level))}");
-
     bg.loaded.then((value) {
       _player = Player(
           finish: _finish,
           position: Vector2(75, 20),
           moveType: MoveType.None,
-          size: 40);
+          size: 30);
 
       cameraComponent = CameraComponent(world: world);
       cameraComponent.follow(_player);
       cameraComponent.setBounds(
-        Rectangle.fromLTRB(0, 20, 600, (componentSize * (_level)) * 0.29),
+        Rectangle.fromLTRB(0, 0, _right, _bottom),
       );
       cameraComponent.viewfinder.anchor = const Anchor(0.17, 0.025);
 

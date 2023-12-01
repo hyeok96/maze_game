@@ -57,19 +57,19 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
     if (other is Wall) {
       if (moveType == MoveType.Right) {
         moveType = MoveType.None;
-        position.x = other.x - _size;
+        position.x = other.x - 15;
       }
       if (moveType == MoveType.Left) {
         moveType = MoveType.None;
-        position.x = other.x + _size;
+        position.x = other.x + 15;
       }
       if (moveType == MoveType.Up) {
         moveType = MoveType.None;
-        position.y = other.y + _size;
+        position.y = other.y + 15;
       }
       if (moveType == MoveType.Down) {
         moveType = MoveType.None;
-        position.y = other.y - _size;
+        position.y = other.y - 15;
       }
     }
 

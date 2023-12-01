@@ -64,35 +64,52 @@ class _MazeGamePageState extends State<MazeGamePage> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            _controller.game.movePlayer(type: "up");
-                          },
-                          child: const Text("위")),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      GestureDetector(
+                        onTap: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ElevatedButton(
                               onPressed: () {
-                                _controller.game.movePlayer(type: "left");
+                                _controller.game.movePlayer(type: "up");
                               },
-                              child: const Text("왼쪽")),
+                              child: const Text("위")),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    _controller.game.movePlayer(type: "left");
+                                  },
+                                  child: const Text("왼쪽")),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    _controller.game.movePlayer(type: "right");
+                                  },
+                                  child: const Text("오른쪽")),
+                            ],
+                          ),
                           ElevatedButton(
                               onPressed: () {
-                                _controller.game.movePlayer(type: "right");
+                                _controller.game.movePlayer(type: "down");
                               },
-                              child: const Text("오른쪽")),
+                              child: const Text("아래")),
                         ],
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            _controller.game.movePlayer(type: "down");
-                          },
-                          child: const Text("아래")),
                     ],
                   ),
                 ),
@@ -120,6 +137,17 @@ Widget _gameEndWidget(MazeGameController controller) {
               fontWeight: FontWeight.bold,
               fontSize: 30,
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            children: [
+              Text(
+                controller.totalTime,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
           ),
         ),
         Row(
