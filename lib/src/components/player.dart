@@ -29,7 +29,7 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
   @override
   FutureOr<void> onLoad() async {
     sprite = await gameRef.loadSprite("player.png");
-    size = Vector2.all(_size - 10);
+    size = Vector2.all(_size);
     anchor = Anchor.center;
 
     final Paint defaultPaint = Paint()

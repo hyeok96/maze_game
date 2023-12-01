@@ -35,25 +35,29 @@ class _MazeGamePageState extends State<MazeGamePage> {
       () {
         GameState state = _controller.state;
         if (state is Init) {
-          return Column(
-            children: [
-              const Text("Mazegame"),
-              TextButton(
-                  onPressed: () {
-                    _controller.onTapGameLevel(1);
-                  },
-                  child: const Text("쉬움")),
-              TextButton(
-                  onPressed: () {
-                    _controller.onTapGameLevel(2);
-                  },
-                  child: const Text("보통")),
-              TextButton(
-                  onPressed: () {
-                    _controller.onTapGameLevel(3);
-                  },
-                  child: const Text("어려움")),
-            ],
+          return SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text("Mazegame"),
+                TextButton(
+                    onPressed: () {
+                      _controller.onTapGameLevel(1);
+                    },
+                    child: const Text("쉬움")),
+                TextButton(
+                    onPressed: () {
+                      _controller.onTapGameLevel(2);
+                    },
+                    child: const Text("보통")),
+                TextButton(
+                    onPressed: () {
+                      _controller.onTapGameLevel(3);
+                    },
+                    child: const Text("어려움")),
+              ],
+            ),
           );
         }
         return SafeArea(
@@ -69,7 +73,10 @@ class _MazeGamePageState extends State<MazeGamePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          print("aa");
+                          _controller.stopGame();
+                        },
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Icon(
@@ -113,6 +120,7 @@ class _MazeGamePageState extends State<MazeGamePage> {
                     ],
                   ),
                 ),
+              if (state is Stop) dialog(_controller),
               if (state is GameOver) _gameEndWidget(_controller)
             ],
           ),
@@ -180,7 +188,7 @@ Widget _gameEndWidget(MazeGameController controller) {
             ),
             GestureDetector(
               onTap: () {
-                controller.replayGame();
+                controller.reStartGame();
               },
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -191,6 +199,73 @@ Widget _gameEndWidget(MazeGameController controller) {
                     borderRadius: BorderRadius.circular(10)),
                 child: const Text(
                   "one more",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget dialog(MazeGameController controller) {
+  return Container(
+    color: Colors.black.withOpacity(0.7),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text("OUT?"),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                controller.returnSelectPage();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Text(
+                  "selectPage",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                controller.replayGame();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
+                child: const Text(
+                  "continue",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

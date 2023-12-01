@@ -9,7 +9,7 @@ class MazeGameController extends GetxController {
   final Rx<GameState> _state = Rx(Init());
   GameState get state => _state.value;
 
-  RxInt _level = 3.obs;
+  RxInt _level = 9.obs;
   int get level => _level.value;
   final RxBool _finish = false.obs;
   bool get finish => _finish.value;
@@ -36,7 +36,7 @@ class MazeGameController extends GetxController {
     _state.value = Playing();
     double levelNum = double.parse(level.toString());
     if (level == 1) {
-      _level = 3.obs;
+      _level = 9.obs;
       _right = (_right + 400 * (levelNum - 1.0)) as RxDouble;
       _bottom = (_bottom + 400 * (levelNum - 1.0)) as RxDouble;
       setNewGame();
@@ -77,7 +77,7 @@ class MazeGameController extends GetxController {
     _state.value = Init();
   }
 
-  void replayGame() {
+  void reStartGame() {
     _state.value = Playing();
     _hour.value = 0;
     _min.value = 0;
@@ -112,5 +112,15 @@ class MazeGameController extends GetxController {
     }
 
     _totalTime.value = "$Hour : $Min : $Second";
+  }
+
+  void stopGame() {
+    _state.value = Stop();
+    _timer.cancel();
+  }
+
+  void replayGame() {
+    _state.value = Playing();
+    setTimer();
   }
 }
