@@ -77,18 +77,22 @@ class MazeGame extends FlameGame with HasCollisionDetection {
   void movePlayer({required String type}) {
     switch (type) {
       case "up":
-        _player.position = Vector2(_player.position.x, _player.position.y - 5);
+        _player.position = Vector2(_player.position.x, _player.position.y - 1);
         _player.moveType = MoveType.Up;
+        _player.angle = pi;
 
       case "down":
-        _player.position = Vector2(_player.position.x, _player.position.y + 5);
+        _player.position = Vector2(_player.position.x, _player.position.y + 1);
         _player.moveType = MoveType.Down;
+        _player.angle = 0;
       case "right":
-        _player.position = Vector2(_player.position.x + 5, _player.position.y);
+        _player.position = Vector2(_player.position.x + 1, _player.position.y);
         _player.moveType = MoveType.Right;
+        _player.angle = pi + pi / 2;
       case "left":
-        _player.position = Vector2(_player.position.x - 5, _player.position.y);
+        _player.position = Vector2(_player.position.x - 1, _player.position.y);
         _player.moveType = MoveType.Left;
+        _player.angle = pi / 2;
     }
   }
 }
