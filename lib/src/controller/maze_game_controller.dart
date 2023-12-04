@@ -13,9 +13,9 @@ class MazeGameController extends GetxController {
   int get level => _level.value;
   final RxBool _finish = false.obs;
   bool get finish => _finish.value;
-  RxDouble _right = 595.0.obs;
+  RxDouble _right = 900.0.obs;
   double get right => _right.value;
-  RxDouble _bottom = 99.0.obs;
+  RxDouble _bottom = 1300.0.obs;
   double get bottom => _bottom.value;
   final RxInt _seconds = 0.obs;
   int get seconds => _seconds.value;
@@ -37,8 +37,8 @@ class MazeGameController extends GetxController {
     double levelNum = double.parse(level.toString());
     if (level == 1) {
       _level = 9.obs;
-      _right = (_right + 400 * (levelNum - 1.0)) as RxDouble;
-      _bottom = (_bottom + 400 * (levelNum - 1.0)) as RxDouble;
+      _right = (_right + 1 * (levelNum - 1.0)) as RxDouble;
+      _bottom = (_bottom + 1 * (levelNum - 1.0)) as RxDouble;
       setNewGame();
     }
     if (level == 2) {

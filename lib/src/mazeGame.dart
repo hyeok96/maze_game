@@ -8,6 +8,7 @@ import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
 import 'package:flame/src/components/core/component.dart';
 import 'package:maze_game/src/components/background.dart';
+import 'package:maze_game/src/components/mainBackground.dart';
 import 'package:maze_game/src/components/wallType.dart';
 
 import 'components/player.dart';
@@ -47,8 +48,11 @@ class MazeGame extends FlameGame with HasCollisionDetection {
   FutureOr<void> onLoad() async {
     super.onLoad();
 
+    final MainBackground mainBg = MainBackground();
     final Background bg = Background(level: _level);
     await add(world);
+
+    world.add(mainBg);
     world.add(bg);
 
     bg.loaded.then((value) {
@@ -64,9 +68,9 @@ class MazeGame extends FlameGame with HasCollisionDetection {
       cameraComponent = CameraComponent(world: world);
       cameraComponent.follow(_player);
       cameraComponent.setBounds(
-        Rectangle.fromLTRB(0, 0, _right, _bottom),
+        Rectangle.fromLTRB(0, 0, 1700, 1400),
       );
-      cameraComponent.viewfinder.anchor = const Anchor(0.17, 0.025);
+      cameraComponent.viewfinder.anchor = Anchor.center;
 
       add(cameraComponent);
 

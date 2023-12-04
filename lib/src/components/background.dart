@@ -31,7 +31,7 @@ class Background extends SpriteComponent with HasGameRef {
   @override
   FutureOr<void> onLoad() async {
     sprite = await gameRef.loadSprite("bg.png");
-    size = Vector2(1000, 1000);
+    size = Vector2(100, 100);
     position = Vector2(0, 0);
 
     await initMazeGame(size: level);

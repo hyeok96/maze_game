@@ -17,6 +17,7 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
     required double prevX,
     required double prevY,
   }) : super(position: position) {
+    this.moveType = moveType;
     _size = size;
     _finish = finish;
     // _prevX = prevX;

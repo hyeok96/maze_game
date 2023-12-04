@@ -43,16 +43,12 @@ class Wall extends SpriteComponent with HasGameRef, CollisionCallbacks {
       ..renderShape = true;
     add(hitbox);
 
+    print("positonx : ${position.x} positionY : ${position.y}");
+
     rightPoint = Point(position.x + _size / 2, position.y);
     leftPoint = Point(position.x - _size / 2, position.y);
     upPoint = Point(position.x, position.y - _size / 2);
     downPoint = Point(position.x, position.y + _size / 2);
-
-    print("rightPoint x:${rightPoint.x} y: ${rightPoint.y}");
-    print("leftPoint x:${leftPoint.x} y: ${leftPoint.y}");
-    print("upPoint x:${upPoint.x} y: ${upPoint.y}");
-    print("downPoint x:${downPoint.x} y: ${downPoint.y}");
-
     super.onLoad();
   }
 
@@ -108,46 +104,7 @@ class Wall extends SpriteComponent with HasGameRef, CollisionCallbacks {
             }
           }
         }
-
-        // if (pointX < positionX) {
-        //   other.position.x = positionX - size.x / 2 - other.size.x / 2;
-        // }
-
-        // if (pointX > positionX) {
-        //   other.position.x = positionX + size.x / 2 + other.size.x / 2;
-        // }
-
-        // if (pointY > positionY) {
-        //   other.position.y = positionY + size.y / 2 + other.size.y / 2;
-        // }
-
-        // if (pointY < positionY) {
-        //   other.position.y = positionY - size.y / 2 - other.size.y / 2;
-        // }
       }
-
-      // if (other.moveType == MoveType.Right) {
-      //   other.moveType = MoveType.None;
-      //   position.x = other.x - other.size.x / 2 - size.x / 2;
-      // }
-      // if (moveType == MoveType.Left) {
-      //   moveType = MoveType.None;
-      //   position.x = other.x + other.size.x / 2 + size.x / 2;
-      // }
-      // if (moveType == MoveType.Up) {
-      //   moveType = MoveType.None;
-      //   position.y = other.y + other.size.y / 2 + size.y / 2;
-      // }
-      // if (moveType == MoveType.Down) {
-      //   moveType = MoveType.None;
-      //   position.y = other.y - other.size.y - size.y / 2;
-      // }
     }
-  }
-
-  @override
-  void render(Canvas canvas) {
-    // TODO: implement render
-    super.render(canvas);
   }
 }
