@@ -9,15 +9,18 @@ import 'package:maze_game/src/components/wall.dart';
 import 'package:maze_game/src/mazeGame.dart';
 
 class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
-  Player(
-      {required Vector2 position,
-      required MoveType moveType,
-      required double size,
-      required bool finish})
-      : super(position: position) {
-    this.moveType = moveType;
+  Player({
+    required Vector2 position,
+    required MoveType moveType,
+    required double size,
+    required bool finish,
+    required double prevX,
+    required double prevY,
+  }) : super(position: position) {
     _size = size;
     _finish = finish;
+    // _prevX = prevX;
+    // _prevY = prevY;
   }
 
   late ShapeHitbox hitbox;
@@ -26,17 +29,21 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
   late double _size;
   late bool _finish;
 
+  late double prevX;
+  late double prevY;
+  Set<MoveType> set = {};
+
   @override
   FutureOr<void> onLoad() async {
     sprite = await gameRef.loadSprite("player.png");
-    size = Vector2.all(_size - 10);
+    size = Vector2.all(_size);
     anchor = Anchor.center;
 
     final Paint defaultPaint = Paint()
       ..color = Colors.blue
       ..style = PaintingStyle.stroke;
 
-    hitbox = RectangleHitbox()
+    hitbox = CircleHitbox()
       ..paint = defaultPaint
       ..renderShape = true;
     add(hitbox);
@@ -49,29 +56,13 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
   }
 
   @override
-  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+  void onCollision(
+      Set<Vector2> intersectionPoints, PositionComponent other) async {
     super.onCollision(intersectionPoints, other);
 
     if (other is ScreenHitbox) {}
 
-    if (other is Wall) {
-      if (moveType == MoveType.Right) {
-        moveType = MoveType.None;
-        position.x = other.x - 15;
-      }
-      if (moveType == MoveType.Left) {
-        moveType = MoveType.None;
-        position.x = other.x + 15;
-      }
-      if (moveType == MoveType.Up) {
-        moveType = MoveType.None;
-        position.y = other.y + 15;
-      }
-      if (moveType == MoveType.Down) {
-        moveType = MoveType.None;
-        position.y = other.y - 15;
-      }
-    }
+    if (other is Wall) {}
 
     if (other is Exit) {}
   }

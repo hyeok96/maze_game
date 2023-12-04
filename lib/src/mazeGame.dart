@@ -14,8 +14,6 @@ import 'components/player.dart';
 
 enum MoveType { None, Up, Down, Right, Left }
 
-// enum DirectType { Wall, Empty, Exit }
-
 class MazeGame extends FlameGame with HasCollisionDetection {
   MazeGame(
       {required bool finish,
@@ -37,6 +35,9 @@ class MazeGame extends FlameGame with HasCollisionDetection {
 
   double componentSize = 50;
 
+  double prevX = 75;
+  double prevY = 25;
+
   @override
   final World world = World();
 
@@ -47,16 +48,18 @@ class MazeGame extends FlameGame with HasCollisionDetection {
     super.onLoad();
 
     final Background bg = Background(level: _level);
-
     await add(world);
     world.add(bg);
 
     bg.loaded.then((value) {
       _player = Player(
-          finish: _finish,
-          position: Vector2(75, 20),
-          moveType: MoveType.None,
-          size: 30);
+        finish: _finish,
+        position: Vector2(75, 25),
+        moveType: MoveType.None,
+        size: 20,
+        prevX: prevX,
+        prevY: prevY,
+      );
 
       cameraComponent = CameraComponent(world: world);
       cameraComponent.follow(_player);
@@ -74,16 +77,17 @@ class MazeGame extends FlameGame with HasCollisionDetection {
   void movePlayer({required String type}) {
     switch (type) {
       case "up":
-        _player.position = Vector2(_player.position.x, _player.position.y - 15);
+        _player.position = Vector2(_player.position.x, _player.position.y - 5);
         _player.moveType = MoveType.Up;
+
       case "down":
-        _player.position = Vector2(_player.position.x, _player.position.y + 15);
+        _player.position = Vector2(_player.position.x, _player.position.y + 5);
         _player.moveType = MoveType.Down;
       case "right":
-        _player.position = Vector2(_player.position.x + 15, _player.position.y);
+        _player.position = Vector2(_player.position.x + 5, _player.position.y);
         _player.moveType = MoveType.Right;
       case "left":
-        _player.position = Vector2(_player.position.x - 15, _player.position.y);
+        _player.position = Vector2(_player.position.x - 5, _player.position.y);
         _player.moveType = MoveType.Left;
     }
   }

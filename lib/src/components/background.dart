@@ -136,10 +136,11 @@ class Background extends SpriteComponent with HasGameRef {
       for (int x = 0; x < _tile.length; x++) {
         if (_tile[y][x] == DirectType.Wall) {
           Wall wall = Wall(
-              position: Vector2(componentSize * x + componentSize / 2,
-                  componentSize * y + componentSize / 2),
-              type: map[y][x].wallTpyeNumber,
-              size: componentSize);
+            position: Vector2(componentSize * x + componentSize / 2,
+                componentSize * y + componentSize / 2),
+            type: map[y][x].wallTpyeNumber,
+            size: componentSize,
+          );
           await add(wall);
         } else if (_tile[y][x] == DirectType.Empty) {
           Empty empty = Empty(
