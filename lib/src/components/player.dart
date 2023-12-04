@@ -8,7 +8,8 @@ import 'package:maze_game/src/components/exit.dart';
 import 'package:maze_game/src/components/wall.dart';
 import 'package:maze_game/src/mazeGame.dart';
 
-class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
+class Player extends SpriteAnimationComponent
+    with HasGameRef, CollisionCallbacks {
   Player({
     required Vector2 position,
     required MoveType moveType,
@@ -36,8 +37,11 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
 
   @override
   FutureOr<void> onLoad() async {
-    sprite = await gameRef.loadSprite("player.png");
-    size = Vector2.all(_size);
+    // sprite = await gameRef.loadSprite("player.png");
+    animation = await gameRef.loadSpriteAnimation(
+        "player.png",
+        SpriteAnimationData.sequenced(
+            amount: 12, stepTime: 0.1, textureSize: Vector2.all(32)));
     anchor = Anchor.center;
 
     final Paint defaultPaint = Paint()
@@ -51,6 +55,8 @@ class Player extends SpriteComponent with HasGameRef, CollisionCallbacks {
 
     super.onLoad();
   }
+
+  Future<void> _loadAnimated() async {}
 
   void endMovePlayer() {
     position = position;
